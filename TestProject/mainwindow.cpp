@@ -66,12 +66,6 @@ void MainWindow::penWidth()
         scribbleArea->setPenWidth(newWidth);
 }
 
-void MainWindow::about()
-{
-    QMessageBox::about(this, tr("About Scribble"),
-            tr("<p>The <b>Scribble</b> example is awesome</p>"));
-}
-
 void MainWindow::createActions()
 {
     openAct = new QAction(tr("&Open..."), this);
@@ -92,9 +86,6 @@ void MainWindow::createActions()
         saveAsActs.append(action);
     }
 
-    printAct = new QAction(tr("&Print..."), this);
-    connect(printAct, SIGNAL(triggered()), scribbleArea, SLOT(print()));
-
     exitAct = new QAction(tr("E&xit"), this);
     exitAct->setShortcuts(QKeySequence::Quit);
     connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
@@ -109,11 +100,6 @@ void MainWindow::createActions()
     clearScreenAct->setShortcut(tr("Ctrl+L"));
     connect(clearScreenAct, SIGNAL(triggered()), scribbleArea, SLOT(clearImage()));
 
-    aboutAct = new QAction(tr("&About"), this);
-    connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
-
-    aboutQtAct = new QAction(tr("About &Qt"), this);
-    connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 }
 
 void MainWindow::createMenus()
@@ -125,7 +111,6 @@ void MainWindow::createMenus()
     fileMenu = new QMenu(tr("&File"), this);
     fileMenu->addAction(openAct);
     fileMenu->addMenu(saveAsMenu);
-    fileMenu->addAction(printAct);
     fileMenu->addSeparator();
     fileMenu->addAction(exitAct);
 
@@ -135,13 +120,8 @@ void MainWindow::createMenus()
     optionMenu->addSeparator();
     optionMenu->addAction(clearScreenAct);
 
-    helpMenu = new QMenu(tr("&Help"), this);
-    helpMenu->addAction(aboutAct);
-    helpMenu->addAction(aboutQtAct);
-
     menuBar()->addMenu(fileMenu);
     menuBar()->addMenu(optionMenu);
-    menuBar()->addMenu(helpMenu);
 }
 
 bool MainWindow::maybeSave()

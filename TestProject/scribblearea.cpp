@@ -1,11 +1,5 @@
 #include <QtWidgets>
-#if defined(QT_PRINTSUPPORT_LIB)
-#include <QtPrintSupport/qtprintsupportglobal.h>
-#if QT_CONFIG(printdialog)
-#include <QPrinter>
-#include <QPrintDialog>
-#endif
-#endif
+
 
 #include "scribblearea.h"
 
@@ -110,8 +104,7 @@ void ScribbleArea::drawLineTo(const QPoint &endPoint)
 {
     QPainter painter(&image);
 
-    painter.setPen(QPen(myPenColor, myPenWidth, Qt::SolidLine, Qt::RoundCap,
-                        Qt::RoundJoin));
+    painter.setPen(QPen(myPenColor, myPenWidth, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
 
     painter.drawLine(lastPoint, endPoint);
 
@@ -137,23 +130,4 @@ void ScribbleArea::resizeImage(QImage *image, const QSize &newSize)
     QPainter painter(&newImage);
     painter.drawImage(QPoint(0, 0), *image);
     *image = newImage;
-}
-
-void ScribbleArea::print()
-{
-//#if QT_CONFIG(printdialog)
-
-//    QPrinter printer(QPrinter::HighResolution);
-
-//    QPrintDialog printDialog(&printer, this);
-//    if (printDialog.exec() == QDialog::Accepted) {
-//        QPainter painter(&printer);
-//        QRect rect = painter.viewport();
-//        QSize size = image.size();
-//        size.scale(rect.size(), Qt::KeepAspectRatio);
-//        painter.setViewport(rect.x(), rect.y(), size.width(), size.height());
-//        painter.setWindow(image.rect());
-//        painter.drawImage(0, 0, image);
-//    }
-//#endif // QT_CONFIG(printdialog)
 }
